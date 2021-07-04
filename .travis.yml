@@ -1,0 +1,18 @@
+language: java
+jdk:
+  - openjdk16
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+script: "./gradlew clean build" # 3.
+
+#notifications:
+#  email:
+#    recipients:
+#      - ldntjd1081@naver.com
