@@ -58,7 +58,6 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          Default_region_name:
 
       - name: Print Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
