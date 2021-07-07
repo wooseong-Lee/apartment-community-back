@@ -12,9 +12,6 @@
 
 ## AWS
 
-- 계정: xownd6235@naver.com
-- 비밀번호: ghddlr@2021(영어로 홍익)
-
 ### 서버 접속정보
 
 - 유저 이름: ec2-user
@@ -34,8 +31,3 @@ Intellij 플러그인 중 **Database Navigator** 를 내려받은 뒤에 IDE 왼
 Database 탭을 클릭하고 MySQL DB를 추가하기 위한 메뉴를 클릭한 뒤에 아래와 같이 입력한다.
 
 <img width="655" alt="스크린샷 2021-07-07 오전 2 59 51" src="https://user-images.githubusercontent.com/73357585/124646462-a1dace00-decf-11eb-9a13-bf5ba2f96ba7.png">
-
-- Name: MySQL
-- User: admin
-- Password: ghddlr2021
-- URL: jdbc:mysql://mysql.cluzxyxn4uw0.us-east-1.rds.amazonaws.com:3306/mysql
