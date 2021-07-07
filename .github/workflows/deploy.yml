@@ -32,7 +32,7 @@ jobs:
           tags: latest
 
       - name: Trigger the CodeDeploy in EC2 instance
-        run: aws deploy --region ap-northeast-2 create-deployment
+        run: aws deploy --region ap-northeast-2 create-deployment \
         --application-name apt-talk-code-deploy \
         --deployment-config-name CodeDeployDefault.OneAtATime \
         --deployment-group-name com.aptalk \
