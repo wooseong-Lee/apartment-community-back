@@ -6,8 +6,8 @@ fi
 
 mkdir -vp /home/ec2-user/deploy
 
-docker stop apt-server:latest
-docker rm `docker ps -a -q`
+docker stop ldntjd1081/apt-server:latest
+docker rm ldntjd1081/apt-server:latest
 
 if [[ "$(docker images -q ldntjd1081/apt-server:latest 2> /dev/null)" != ""]]; then
   docker rmi -f $(docker images --format '{{.Repository}}:{{.Tag}}' --filter=reference=ldntjd1081/apt-server:latest)
