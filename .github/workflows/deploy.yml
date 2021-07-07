@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   test:
@@ -12,7 +15,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Set up JDK 16
-        uses: actions/setup-java@2
+        uses: actions/setup-java@v2
         with:
           java-version: '16'
           distribution: 'adopt'
@@ -21,23 +24,36 @@ jobs:
         run: ./gradlew test
 
   deploy:
+    needs: test
     runs-on: ubuntu-18.04
     steps:
-      - name: Build docker image and push to dockerhub
-        uses: docker/build-push-action@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_ID }}
-          password: ${{ secrets.DOCKER_PW }}
-          repository: ldntjd1081/apt-server
-          tags: latest
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build docker image and push to dockerhub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platform: linux/amd64
+          push: true
+          tags: ldntjd1081/apt-server:latest
 
       - name: Trigger the CodeDeploy in EC2 instance
-        run: aws deploy --region ap-northeast-2 create-deployment
-        --application-name apt-talk-code-deploy \
-        --deployment-config-name CodeDeployDefault.OneAtATime \
-        --deployment-group-name com.aptalk \
-        --github-location repository=wooseong-Lee/aptalk-server, commitId=${GITHUB_SHA}
+        id: docker_build
+        run: aws deploy create-deployment --region ap-northeast-2 --application-name apt-talk-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name com.aptalk --github-location repository=wooseong-Lee/aptalk-server,commitId=${{ github.sha }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          Default_region_name:
+
+      - name: Print Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
