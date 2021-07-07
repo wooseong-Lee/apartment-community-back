@@ -10,8 +10,6 @@ RUN ./gradlew build --no-build-cache
 
 FROM adoptopenjdk/openjdk16:alpine-jre
 
-RUN apk update && apk add --no-cache curl bash
-
 ENV DEPLOY_HOME=/home/ec2-user/deploy/server
 WORKDIR $DEPLOY_HOME
 
