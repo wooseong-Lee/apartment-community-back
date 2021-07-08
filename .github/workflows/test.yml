@@ -1,8 +1,5 @@
 name: Apt-talk server deploy
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
