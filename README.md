@@ -4,11 +4,7 @@
 
 ## CI/CD
 
-### CI
-**https://www.travis-ci.com**
-
-### CD
-**CD(Continuous Deploy)는 AWS S3기반 Code deploy**
+github action, Code deploy, dockerhub 
 
 ## AWS
 
@@ -16,7 +12,6 @@
 
 - 유저 이름: ec2-user
 - 서버 도메인: ec2-13-124-217-120.ap-northeast-2.compute.amazonaws.com
-- ssh 접속시: ec2-user@ec2-13-124-217-120.ap-northeast-2.compute.amazonaws.com
 
 <br/>
 
