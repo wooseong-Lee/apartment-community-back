@@ -12,6 +12,6 @@ public class TestServiceTest {
     @Test
     @DisplayName("테스트")
     void test() {
-        assertEquals("Aptalk", testService.getTestResult());
+        assertEquals("Aptalk v2", testService.getTestResult());
     }
 }
