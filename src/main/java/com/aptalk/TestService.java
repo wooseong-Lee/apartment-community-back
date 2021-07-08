@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public class TestService {
 
     public String getTestResult() {
-        return "Aptalk";
+        return "Aptalk v2";
     }
 }
