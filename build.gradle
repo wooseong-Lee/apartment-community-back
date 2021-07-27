@@ -7,8 +7,11 @@ plugins {
 group = 'com.aptalk'
 version = '0.0.1-SNAPSHOT'
 
-sourceCompatibility = '16'
-targetCompatibility = '16'
+//sourceCompatibility = '16'
+//targetCompatibility = '16'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 configurations {
     compileOnly {

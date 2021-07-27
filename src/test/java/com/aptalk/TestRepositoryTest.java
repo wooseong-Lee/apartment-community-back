@@ -1,5 +1,8 @@
 package com.aptalk;
 
+import com.aptalk.testapi.TestRepository;
+import com.aptalk.testapi.TestService;
+import com.aptalk.testapi.TestUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

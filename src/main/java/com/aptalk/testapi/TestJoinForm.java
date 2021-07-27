@@ -1,4 +1,4 @@
-package com.aptalk;
+package com.aptalk.testapi;
 
 import lombok.Getter;
 import lombok.Setter;

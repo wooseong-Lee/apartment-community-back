@@ -1,4 +1,4 @@
-package com.aptalk;
+package com.aptalk.testapi;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
