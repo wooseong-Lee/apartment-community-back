@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -42,7 +43,7 @@ class BoardControllerTest {
     @Test
     @Transactional(readOnly = true)
     @DisplayName("게시판 목록 페이징 테스트")
-    void getBoardsByPageNum() throws Exception {
+    void getBoards() throws Exception {
 
         // given
         String url = "/api/v1/aptalk/community/1/board?";
@@ -75,13 +76,12 @@ class BoardControllerTest {
 
             assertThat(compareValue).isGreaterThanOrEqualTo(0);
         }
-
     }
 
     @Test
     @Transactional
     @DisplayName("게시판 추가 테스트")
-    void addBoard() throws Exception {
+    void createBoard() throws Exception {
 
         // given
         String url = "/api/v1/aptalk/community/1/board";
@@ -102,7 +102,6 @@ class BoardControllerTest {
 
         // then
         assertThat(afterAdd).isEqualTo(beforeAdd + 1);
-
     }
 
     @Test
@@ -125,7 +124,6 @@ class BoardControllerTest {
         assertThat(board.getId()).isEqualTo(boardResponse.getId());
         assertThat(board.getTitle()).isEqualTo(boardResponse.getTitle());
         assertThat(board.getContent()).isEqualTo(boardResponse.getContent());
-
     }
 
     @Test
@@ -151,7 +149,6 @@ class BoardControllerTest {
 
         assertThat(afterUpdate.getTitle()).isEqualTo(title);
         assertThat(afterUpdate.getContent()).isEqualTo(content);
-
     }
 
     @Test
@@ -165,9 +162,9 @@ class BoardControllerTest {
         // when
         mockMvc.perform(delete(url))
                 .andExpect(status().isOk());
+        Optional<Board> board = boardRepository.findById(1L);
 
         // then
-        assertThat(boardRepository.findById(1L).isEmpty()).isTrue();
-
+        assertThat(board.isEmpty()).isTrue();
     }
 }

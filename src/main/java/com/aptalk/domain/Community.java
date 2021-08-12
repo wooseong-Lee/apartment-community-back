@@ -2,6 +2,7 @@ package com.aptalk.domain;
 
 import com.aptalk.dto.CommunityRequest;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
         @UniqueConstraint(columnNames = {"name", "zipCode"})
 })
 @Getter
+@NoArgsConstructor
 public class Community {
 
     @Id
@@ -24,8 +26,6 @@ public class Community {
 
     public String notice;
 
-    public Community(){}
-
     public Community(Long id) {
         this.id = id;
     }
@@ -36,13 +36,14 @@ public class Community {
         this.notice = notice;
     }
 
-    public static Community newCommunity(CommunityRequest communityRequest) {
+    public static Community from(CommunityRequest communityRequest) {
         return new Community(communityRequest.getName(), communityRequest.getZipCode(), communityRequest.getNotice());
     }
 
-    public void updateCommunity(CommunityRequest communityRequest) {
+    public Community updateCommunity(CommunityRequest communityRequest) {
         if(communityRequest.getName() != null) this.name = communityRequest.getName();
         if(communityRequest.getZipCode() != null) this.zipCode = communityRequest.getZipCode();
         if(communityRequest.getNotice() != null) this.notice = communityRequest.getNotice();
+        return this;
     }
 }

@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -41,7 +42,7 @@ class CommunityControllerTest {
     @Test
     @Transactional(readOnly = true)
     @DisplayName("커뮤니티 목록 페이징 테스트")
-    void getCommunitysByPageNum() throws Exception {
+    void getCommunitys() throws Exception {
 
         // given
         String url = "/api/v1/aptalk/community?";
@@ -73,13 +74,12 @@ class CommunityControllerTest {
 
             assertThat(compareValue).isLessThanOrEqualTo(0);
         }
-
     }
 
     @Test
     @Transactional
     @DisplayName("커뮤니티 추가 테스트")
-    void addCommunity() throws Exception {
+    void createCommunity() throws Exception {
 
         // given
         String url = "/api/v1/aptalk/community";
@@ -101,7 +101,6 @@ class CommunityControllerTest {
 
         // then
         assertThat(afterAdd).isEqualTo(beforeAdd + 1);
-
     }
 
     @Test
@@ -124,7 +123,6 @@ class CommunityControllerTest {
         assertThat(community.getId()).isEqualTo(communityResponse.getId());
         assertThat(community.getName()).isEqualTo(communityResponse.getName());
         assertThat(community.getNotice()).isEqualTo(communityResponse.getNotice());
-
     }
 
     @Test
@@ -152,7 +150,6 @@ class CommunityControllerTest {
         assertThat(afterUpdate.getName()).isEqualTo(name);
         assertThat(afterUpdate.getZipCode()).isEqualTo(zipCode);
         assertThat(afterUpdate.getNotice()).isEqualTo(notice);
-
     }
 
     @Test
@@ -167,8 +164,9 @@ class CommunityControllerTest {
         mockMvc.perform(delete(url))
                 .andExpect(status().isOk());
 
-        // then
-        assertThat(communityRepository.findById(1L).isEmpty()).isTrue();
+        Optional<Community> community = communityRepository.findById(1L);
 
+        // then
+        assertThat(community.isEmpty()).isTrue();
     }
 }
